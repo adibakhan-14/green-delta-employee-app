@@ -64,6 +64,7 @@ export class EmployeeAddComponent implements OnInit {
     return this.skillInfo.get('levelExp');
   }
 
+
   submit(){
 
     console.log(this.skillInfo.value);
