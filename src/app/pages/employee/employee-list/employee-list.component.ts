@@ -27,7 +27,7 @@ export class EmployeeListComponent implements OnInit {
   addEmployee(){
     const dialogRef = this.dialog.open(EmployeeAddComponent, {
       width: '730px',
-      height: '450px',
+      height: '550px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
