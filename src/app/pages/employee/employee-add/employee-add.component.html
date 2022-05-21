@@ -7,70 +7,72 @@ fxLayout.lt-sm="column"
 fxFlex.xs="100%"
 fxLayoutAlign="flex-start">
 
-    <mat-tab-group>
-        <form [id]="formId" [formGroup]="basicInfo">
+    <mat-tab-group [selectedIndex]="selectedIndex">
+
         <mat-tab label="Basic Info">
+            <form [id]="formId" [formGroup]="basicInfo">
                     <mat-form-field
                     appearance="outline"
                     floatLabel="always"
-                    style="width: 100%; height: 50px">
+                    style="width: 100%;">
                         <mat-label>First Name</mat-label>
                         <input matInput placeholder="First Name" formControlName="first" required>
                     </mat-form-field>
                     <mat-form-field
                     appearance="outline"
                     floatLabel="always"
-                    style="width: 100%; height: 50px">
+                    style="width: 100%;">
                         <mat-label>Last Name</mat-label>
                         <input matInput placeholder="Last Name" formControlName="last" required>
                     </mat-form-field>
                     <mat-form-field
                     appearance="outline"
                     floatLabel="always"
-                    style="width: 100%; height: 50px">
+                    style="width: 100%;">
                         <mat-label>Date Of Birth</mat-label>
                         <input matInput placeholder="DOB" formControlName="dob" required>
                     </mat-form-field>
                     <mat-form-field
                     appearance="outline"
                     floatLabel="always"
-                    style="width: 100%; height: 50px">
+                    style="width: 100%;">
                         <mat-label>Gender</mat-label>
                         <input matInput placeholder="Gender" formControlName="gender" required>
                     </mat-form-field>
                     <mat-form-field
                     appearance="outline"
                     floatLabel="always"
-                    style="width: 100%; height: 50px">
+                    style="width: 100%;">
                         <mat-label>Phone</mat-label>
                         <input matInput placeholder="Phone" formControlName="phone" required>
                     </mat-form-field>
-
-
-
-
+            </form>
+            <div>
+                <button mat-button (click)="next()">Next</button>
+            </div>
         </mat-tab>
-        </form>
-        <form [id]="formId" [formGroup]="skillInfo">
+
         <mat-tab label="Skill Info">
+       <form [id]="formId" [formGroup]="skillInfo">
+
                     <mat-form-field
                     appearance="outline"
                     floatLabel="always"
-                    style="width: 100%; height: 50px">
+                    style="width: 100%;">
                         <mat-label>Skill Name</mat-label>
                         <input matInput placeholder="First Name" formControlName="skill" required>
                     </mat-form-field>
                     <mat-form-field
                     appearance="outline"
                     floatLabel="always"
-                    style="width: 100%; height: 50px">
+                    style="width: 100%;">
                         <mat-label>Years of Experience</mat-label>
                         <input matInput placeholder="First Name" formControlName="exp"  required>
                     </mat-form-field>
                     <mat-form-field
                     appearance="outline"
                     floatLabel="always"
-                    style="width: 100%; height: 50px">
+                    style="width: 100%;">
                         <mat-label>Select</mat-label>
                         <mat-select formControlName="levelExp">
                           <mat-option value="one">Beginner</mat-option>
@@ -78,21 +80,39 @@ fxLayoutAlign="flex-start">
                           <mat-option value="three">Advanced</mat-option>
                         </mat-select>
                       </mat-form-field>
+                    </form>
 
-
-
-
-
+                    <div>
+                        <button mat-button (click)="next()">Next</button>
+                    </div>
+                    <div>
+                        <button mat-button (click)="previous()">previous</button>
+                    </div>
         </mat-tab>
-        </form>
-        <mat-tab label="View">
 
+        <mat-tab label="View">
+            <mat-list>
+                <mat-list-item> <strong>First Name: </strong> {{ this.basicInfo.value.first }}</mat-list-item>
+                <mat-list-item> <strong>Last Name: </strong> {{ this.basicInfo.value.last }}</mat-list-item>
+                <mat-list-item> <strong>Date of Birth: </strong> {{ this.basicInfo.value.dob }}</mat-list-item>
+                <mat-list-item> <strong>Gender: </strong> {{ this.basicInfo.value.gender }}</mat-list-item>
+
+                <mat-list-item><strong>Phone: </strong> {{ this.basicInfo.value.phone }}</mat-list-item>
+
+                <mat-list-item> <strong>Skill Name: </strong> {{ this.skillInfo.value.skill }}</mat-list-item>
+                <mat-list-item> <strong>Years of Experience: </strong> {{ this.skillInfo.value.exp }}</mat-list-item>
+                <mat-list-item> <strong>Level of Experience: </strong> {{ this.skillInfo.value.levelExp }}</mat-list-item>
+            </mat-list>
+
+
+                <div>
+                <button mat-button (click)="previous()">Previous</button>
+                <button mat-button (click)="submit()">Submit</button>
+                </div>
         </mat-tab>
     </mat-tab-group>
 
-    <!-- <button (click)='goto(0)'>Go to 1</button>
-    <button (click)='goto(1)'>Go to 2</button>
-    <button (click)='goto(2)'>Go to 3</button> -->
-
-
 </div>
+
+
+<!-- <button mat-button (click)="basicInfoAdd(first.value, last.value, dob.value, gender.value, phone.value, skill.value, exp.value, levelExp.value)" >Submit</button> -->

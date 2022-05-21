@@ -19,8 +19,10 @@ import { AsyncState } from './shared/state/async.state';
 import { PlatformLocation } from '@angular/common';
 import { UrlService } from './shared/services/url.service';
 import { AvatarComponent } from './shared/components/avatar.component';
+import { HomeComponent } from './pages/home/home.component';
+
 @NgModule({
-  declarations: [AppComponent, PagesComponent],
+  declarations: [AppComponent, PagesComponent, HomeComponent],
   imports: [
     SharedModule.forRoot(),
     BrowserModule,
@@ -28,6 +30,7 @@ import { AvatarComponent } from './shared/components/avatar.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+
     NgxsModule.forRoot([AuthState, AsyncState], {
       developmentMode: !environment.production,
     }),

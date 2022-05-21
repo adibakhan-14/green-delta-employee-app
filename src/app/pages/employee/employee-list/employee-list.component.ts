@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeAddComponent } from '../employee-add/employee-add.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { EmployeeState } from '../../state/app.state';
+import { Employee } from '../models/employee.model';
 
 @Component({
   selector: 'app-employee-list',
@@ -10,18 +14,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-  dataSource: any;
+  results: any;
+  data: any;
+  employees: Observable<Employee[]>;
 
-  constructor( public dialog: MatDialog,) { }
+  constructor( public dialog: MatDialog,
+    private store: Store<EmployeeState>,
+    private route: ActivatedRoute) {
+      this.employees = store.select('employee');
+    }
 
   ngOnInit(): void {
+
+    this.data = JSON.parse(localStorage.getItem('form-data') || '[]');
+
+
   }
-  displayedColumns: string[] = ['name', 'dob','gender'];
+  displayedColumns: string[] = ['first','last', 'dob','gender', 'phone', 'skill', 'exp', 'levelExp'];
 
 
   applyFilter(event: Event){
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.results.filter = filterValue.trim().toLowerCase();
   }
 
   addEmployee(){

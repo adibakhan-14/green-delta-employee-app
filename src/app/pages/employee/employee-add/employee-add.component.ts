@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AsyncService } from 'src/app/shared/services/async.service';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { EmployeeState } from '../../state/app.state';
+import { Employee } from '../models/employee.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as EmployeeActions from './../../actions/employee.actions';
 
 @Component({
   selector: 'app-employee-add',
@@ -12,14 +17,23 @@ export class EmployeeAddComponent implements OnInit {
   formId = 'employeeForm';
   basicInfo: FormGroup;
   skillInfo: FormGroup;
+  selectedIndex: number= 0;
+
+  basic: any=[];
+
+
   // basicInfoForm: FormGroup;
-  isLinear = true;
+  // isLinear = true;
 
   constructor(
     private fb: FormBuilder,
     private commonService: CommonService,
     public asyncService: AsyncService,
-  ) { }
+    private store: Store<EmployeeState>
+    // private skillStore: Store<SkillState>
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.basicInfo = this.fb.group({
@@ -64,11 +78,62 @@ export class EmployeeAddComponent implements OnInit {
     return this.skillInfo.get('levelExp');
   }
 
+  // basicInfoAdd(first: string, last: string, dob:string, gender:string, phone:string, skill: string, exp:string, levelExp: string){
+  //   this.store.dispatch(new EmployeeActions.AddEmployee({
+  //     first: first,
+  //     last: last,
+  //     dob: dob,
+  //     gender: gender,
+  //     phone: phone,
+  //     skill: skill,
+  //     levelExp: levelExp,
+  //     exp: exp
+  //   }))
+  //   if (this.selectedIndex != 3) {
+  //     this.selectedIndex = this.selectedIndex + 1;
+  //   }
+  // }
+  next(){
+    console.log(this.basicInfo.value);
+
+    if (this.selectedIndex != 3) {
+      this.selectedIndex = this.selectedIndex + 1;
+    }
+    console.log(this.selectedIndex);
+  }
+
+  // skillInfoAdd(skill: string, exp:string, levelExp: string){
+  //   this.skillStore.dispatch(new SkillActions.AddSkill({
+  //     skill: skill,
+  //     exp: exp,
+  //     levelExp: levelExp,
+
+  //   }))
+    // if (this.selectedIndex != 3) {
+    //   this.selectedIndex = this.selectedIndex + 1;
+    // }
+  //}
+
+  previous() {
+    if (this.selectedIndex != 0) {
+      this.selectedIndex = this.selectedIndex - 1;
+    }
+    console.log(this.selectedIndex);
+  }
 
   submit(){
 
     console.log(this.skillInfo.value);
     console.log(this.basicInfo.value);
+
+    const basicObj= this.basicInfo.value;
+    const skillObj= this.skillInfo.value;
+
+    const finalObj= {...basicObj, ...skillObj}
+    this.basic.push(finalObj)
+
+
+    localStorage.setItem('form-data', JSON.stringify( this.basic));
 
 
   }

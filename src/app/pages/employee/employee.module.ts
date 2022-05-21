@@ -5,8 +5,15 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from '../reducer/employee.reducer';
+import { PagesComponent } from '../pages.component';
+import { HomeComponent } from '../home/home.component';
+
+
+
 export const routes = [
-  { path: '', component: EmployeeListComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'employee/list', component: EmployeeListComponent, pathMatch: 'full' },
   { path: 'employee/add', component: EmployeeAddComponent, pathMatch: 'full' },
 ];
@@ -19,7 +26,8 @@ export const routes = [
   ],
   imports: [
     MatDialogModule,
-    RouterModule.forChild(routes), SharedModule
+    RouterModule.forChild(routes), SharedModule,
+    StoreModule.forRoot(reducer)
   ]
 })
 export class EmployeeModule { }
