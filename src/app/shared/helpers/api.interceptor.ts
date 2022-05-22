@@ -18,9 +18,9 @@ export class ApiInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     request = request.clone({ url: `${this.baseUrl}${request.url}` });
-    request = request.clone({
-      headers: request.headers.set('Content-Type', 'application/json'),
-    });
+    // request = request.clone({
+    //   headers: request.headers.set('Content-Type', 'application/json'),
+    // });
     request = request.clone({
       headers: request.headers.set('Accept', 'application/json'),
     });

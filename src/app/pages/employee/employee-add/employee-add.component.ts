@@ -7,6 +7,7 @@ import { Employee } from '../models/employee.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as EmployeeActions from './../../actions/employee.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-add',
@@ -29,7 +30,8 @@ export class EmployeeAddComponent implements OnInit {
     private fb: FormBuilder,
     private commonService: CommonService,
     public asyncService: AsyncService,
-    private store: Store<EmployeeState>
+    private store: Store<EmployeeState>,
+    private router: Router
     // private skillStore: Store<SkillState>
   ) {
 
@@ -37,7 +39,7 @@ export class EmployeeAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.basicInfo = this.fb.group({
-      phone:['',[Validators.required]],
+      phone:['',[Validators.required, Validators.pattern('^((\\+88-?)|0)?[0-9]{11}$')]],
       first:['',[Validators.required]],
       last:['',[Validators.required]],
       dob:['',[Validators.required]],
@@ -135,7 +137,7 @@ export class EmployeeAddComponent implements OnInit {
 
     localStorage.setItem('form-data', JSON.stringify( this.basic));
 
-
+    this.router.navigate(['/']);
   }
 
 }
